@@ -98,17 +98,38 @@ struct Node* arrange(struct Node *p,int key)
 	return NULL;
 
 }
+void insert_first(struct Node *p, int data)
+{
+	struct Node *t = new Node;
+	t->data = data;
+	t->next = first;
+	first = t;
+}
+void insert_pos(struct Node *p, int data,int pos)
+{
+	struct Node *t = new Node;
+	t->data = data;
+	for (int i = 0;i < pos-1;i++)
+		p = p->next;
+	t->next = p->next;
+	p->next = t;
 
+
+}
 int main()
 {
 	int arr[] = { 1,2,3,4,5 };
 	createl(arr, 5);
-	display(first);
-	revdisplay(first);
-	cout << "count"<<count(first);
-	cout << "sum" << add(first);
-	cout << "maximum" << maxi(first);
-	cout << search(first, 5);
-	cout << arrange(first, 4);
+	display(first);                                   //to display all the elements
+	revdisplay(first);                                //to display in reverse order
+	cout << "count"<<count(first);                    //to display number of elements
+	cout << "sum" << add(first);                      //to display sum of all elements
+	cout << "maximum" << maxi(first);                 //to display largest element
+	cout << search(first, 5);                         //to search for a specfic element
+	cout << arrange(first, 4);                        //to bring  a specific node to front
+	insert_first(first, 10);                          //to insert at 1st position
+	insert_pos(first, 56, 4);                         //to insert at given position
+
+	
 
 }
