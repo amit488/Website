@@ -119,7 +119,7 @@ void insert_pos(struct Node *p, int data,int pos)
 int main()
 {
 	int arr[] = { 1,2,3,4,5 };
-	createl(arr, 5);
+	createl(arr, 5);                                  //to create linked list from array
 	display(first);                                   //to display all the elements
 	revdisplay(first);                                //to display in reverse order
 	cout << "count"<<count(first);                    //to display number of elements
