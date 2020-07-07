@@ -1,0 +1,114 @@
+#include <iostream>
+#include<set>
+#include<limits>
+using namespace std;
+struct Node {
+	int data;
+	struct Node *next;
+	
+}*first;
+void createl(int A[], int n)
+{
+	struct Node *t, *last;
+	int i;
+	first = (struct Node *)malloc(sizeof(struct Node *));
+	first->data = A[0];
+	first->next = NULL;
+	last = first;
+	for (int i = 1;i < n;i++)
+	{
+		t= (struct Node *)malloc(sizeof(struct Node *));
+		t->data = A[i];
+		t->next = NULL;
+		last->next = t;
+		last = t;
+	}
+	
+}
+void display(struct Node *p)
+{
+	if (p != NULL)
+	{
+		cout << p->data <<" ";
+		display(p->next);
+	}
+	
+}
+void revdisplay(struct Node *p)
+{
+	if (p != NULL)
+	{
+		revdisplay(p->next);
+		cout << p->data <<" ";
+	}
+}
+int count(struct Node *p)
+{
+	if (p == 0)
+		return 0;
+	else return count(p->next) + 1;
+}
+int add(struct Node *p)
+{
+	int sum = 0;
+	while (p)
+	{
+		sum = sum + p->data;
+		p = p->next;
+	}
+	return sum;
+}
+int maxi(struct Node *p)
+{
+	int max = INT64_MIN;
+	while (p)
+	{
+		if (p->data > max)
+			max = p->data;
+		p = p->next;
+	}
+	return max;
+}
+Node* search(struct Node* p, int element)
+{
+	while (p)
+	{
+		if (p->data == element)
+			return p;
+		p = p->next;
+	}
+	return NULL;
+}
+struct Node* arrange(struct Node *p,int key)
+{   
+	struct Node *q=NULL;
+	while (p != NULL) {
+		if (p->data == key) {
+			q->next = p->next;
+			p->next = first;
+			first = p;
+			return p;
+		}
+		else
+		{
+			q = p;
+			p = p->next;
+		}
+	}
+	return NULL;
+
+}
+
+int main()
+{
+	int arr[] = { 1,2,3,4,5 };
+	createl(arr, 5);
+	display(first);
+	revdisplay(first);
+	cout << "count"<<count(first);
+	cout << "sum" << add(first);
+	cout << "maximum" << maxi(first);
+	cout << search(first, 5);
+	cout << arrange(first, 4);
+
+}
