@@ -1,7 +1,9 @@
 #include <iostream>
-#include<set>
 #include<limits>
+#include<stack>
+#include <chrono> 
 using namespace std;
+using namespace std::chrono;
 struct Node {
 	int data;
 	struct Node *next;
@@ -25,14 +27,15 @@ void createl(int A[], int n)
 	}
 	
 }
-void display(struct Node *p)
+void display()
 {
-	if (p != NULL)
+	struct Node *tmp = first;
+	while(tmp!=NULL)
 	{
-		cout << p->data <<" ";
-		display(p->next);
+		cout << tmp->data <<"\n";
+	    tmp=tmp->next;
 	}
-	
+
 }
 void revdisplay(struct Node *p)
 {
@@ -116,11 +119,44 @@ void insert_pos(struct Node *p, int data,int pos)
 
 
 }
+void delete_pos(int a)
+{
+	if (a == 1)
+	{
+		struct Node *prev, *curr = first->next;
+		prev = first;
+		first = curr;
+		delete(prev);
+	}
+}
+void reverse()
+{
+	struct Node *tmp = first;
+	stack<int> st;
+	while (tmp != NULL)
+	{
+		st.push(tmp->data);
+		tmp = tmp->next;
+	}
+	tmp = first;
+	while (tmp != NULL)
+	{
+		tmp->data = st.top();
+		st.pop();
+		tmp = tmp->next;
+	}
+
+}
 int main()
 {
-	int arr[] = { 1,2,3,4,5 };
-	createl(arr, 5);                                  //to create linked list from array
-	display(first);                                   //to display all the elements
+	
+	auto start = high_resolution_clock::now();
+
+	int arr[100000];
+	for (int i = 0;i < 100000;i++)
+		arr[i] = i;
+	createl(arr, 100000);
+	/*display();                                      //to display all the elements
 	revdisplay(first);                                //to display in reverse order
 	cout << "count"<<count(first);                    //to display number of elements
 	cout << "sum" << add(first);                      //to display sum of all elements
@@ -129,7 +165,14 @@ int main()
 	cout << arrange(first, 4);                        //to bring  a specific node to front
 	insert_first(first, 10);                          //to insert at 1st position
 	insert_pos(first, 56, 4);                         //to insert at given position
-
+	delete_pos(1);
+	reverse();*/
 	
+	
+	auto stop = high_resolution_clock::now();
+	auto duration = duration_cast<milliseconds>(stop - start);
 
+	cout << "Time taken for execution: "
+		<< duration.count() << " milliseconds" << endl;
+	
 }
